@@ -1,61 +1,84 @@
-# DataMart S.A.S - Pipeline ETL con Apache Airflow
+# DataMart S.A.S. – Pipeline ETL con Apache Airflow
 
-Este repositorio contiene la solución funcional de extremo a extremo para el caso DataMart S.A.S. El pipeline ingesta datos operativos diarios e históricos, limpia anomalías, aplica reglas de negocio y carga los resultados en un Data Warehouse dimensional en PostgreSQL.
+Pipeline ETL de extremo a extremo: ingesta dos CSV de transacciones, aplica
+reglas de calidad y de negocio, y carga un repositorio analítico en PostgreSQL.
+Todo corre en Docker con un solo comando.
 
-Todo el entorno está dockerizado para garantizar su ejecución en **menos de 10 minutos** sin configuraciones manuales.
+## Requisitos
+- Docker Desktop (o Docker Engine + Compose v2) y Git.
+- Puertos libres: 8080 (Airflow) y 5433 (DW).
 
-##  Requisitos Previos
-* **Docker** y **Docker Compose** instalados.
-* **Git** para clonar el repositorio.
+## Puesta en marcha (≈ 10 minutos)
 
-##  Instrucciones de Ejecución (Paso a Paso)
-
-### 1. Clonar el repositorio y preparar credenciales
+### 1. Clonar y configurar variables
 ```bash
 git clone <URL_DEL_REPOSITORIO>
 cd datamart-etl
-cp .env.example .env
+cp .env.example .env          # Windows PowerShell: Copy-Item .env.example .env
 ```
-*(El archivo `.env` ya contiene credenciales seguras por defecto para Airflow y PostgreSQL. No es necesario modificarlas para esta prueba).*
-
-### 2. Levantar la Infraestructura
-Ejecuta el siguiente comando para levantar todos los servicios (Airflow Webserver, Scheduler, Base de datos de Metadatos y el Data Warehouse destino):
+`.env.example` incluye valores de **demostración local**. Si prefieres una
+clave Fernet propia:
 ```bash
-docker compose up -d
+docker run --rm python:3.11-slim python -c "import base64,os;print(base64.urlsafe_b64encode(os.urandom(32)).decode())"
 ```
-Durante el arranque, el script interno `docker/init_airflow.sh` aprovisionará automáticamente:
-* El usuario administrador de Airflow.
-* La Connection a PostgreSQL (`dw_postgres`).
-* Las Variables operativas (`source_timezone`, `max_rejection_pct`, rutas de archivos).
+y pégala en `AIRFLOW_FERNET_KEY` de tu `.env` (nunca se versiona).
 
-### 3. Validar Configuración y Ejecutar el Pipeline
-1. Abre tu navegador e ingresa a: [http://localhost:8080](http://localhost:8080)
-2. Inicia sesión con las credenciales definidas en tu `.env`:
-   * **Username:** `admin`
-   * **Password:** `Admin_2026_Dm`
-3. **Validación Automática:**
-   * Ve a **Admin > Connections** y verifica que `dw_postgres` exista y apunte a `dw-db`.
-   * Ve a **Admin > Variables** y verifica la existencia de `source_timezone` (Europe/London) y el umbral de rechazos.
-4. **Disparar la Extracción:**
-   * En la vista de DAGs, busca `datamart_etl_pipeline`.
-   * Actívalo usando el interruptor (toggle azul).
-   * Haz clic en **Play (Trigger DAG)**.
-   * Espera a que todas las tareas queden en verde.
+### 2. Levantar el entorno
+```bash
+docker compose up --build -d
+docker compose logs -f airflow-init      # espera "Inicializacion completa" (Ctrl+C para salir)
+```
+La inicialización es automática (`docker/init_airflow.sh`): crea el usuario
+admin, la Connection `dw_postgres` y las Variables. Las tablas del DW las crea
+`sql/ddl/01_schema.sql` al iniciar el contenedor `dw-db`.
 
-### 4. Verificar Datos en el Repositorio Analítico
-Una vez finalizado el DAG, puedes validar que los datos llegaron correctamente y responden a las preguntas de negocio ejecutando:
+### 3. Verificar Connections y Variables
+```bash
+docker compose exec airflow-webserver airflow connections get dw_postgres
+docker compose exec airflow-webserver airflow variables list
+docker compose exec dw-db psql -U dw_user -d datamart_dw -c "\dt dw.*"
+```
+Debes ver la Connection, 6 Variables y 6 tablas. También en la UI:
+Admin → Connections / Admin → Variables.
 
+### 4. Ejecutar el pipeline
+1. Abre http://localhost:8080 e ingresa con `AIRFLOW_ADMIN_USER` /
+   `AIRFLOW_ADMIN_PASSWORD` de tu `.env`.
+2. El DAG `datamart_daily_pipeline` **ya aparece activo**. Pulsa ▶ *Trigger DAG*.
+3. Espera a que todas las tareas queden en verde (≈ 2–4 min).
+
+### 5. Verificar que los datos llegaron
+```bash
+docker compose exec dw-db psql -U dw_user -d datamart_dw -c "SELECT 'sales' t, COUNT(*) FROM dw.fact_sales UNION ALL SELECT 'returns', COUNT(*) FROM dw.fact_returns UNION ALL SELECT 'rejected', COUNT(*) FROM dw.rejected_records UNION ALL SELECT 'agg', COUNT(*) FROM dw.agg_daily_product_net;"
+```
+Resultado esperado: sales 522,502 · returns 8,668 · rejected 552,648 · agg 276,995.
+
+Consultas de las preguntas de negocio:
 ```bash
 docker compose exec -T dw-db psql -U dw_user -d datamart_dw < sql/validation/queries.sql
 ```
 
-## 📁 Estructura Principal
-* `/dags/datamart_etl`: Lógica modular en Python (`extract.py`, `transform.py`, `quality.py`, `load.py`).
-* `/data`: Volúmenes montados para lectura de `raw` y escritura de `staging`.
-* `/sql/ddl`: Script `01_schema.sql` (Modelo de estrella).
-* `/sql/validation`: Consultas de validación (`queries.sql`).
-* `/docs`: Diagrama DBML y documento de decisiones (`DECISIONES.md`).
+### 6. Comprobar la idempotencia
+Dispara el DAG una segunda vez y repite el conteo del paso 5: los números
+deben ser idénticos.
 
-## 📊 Diagrama del Modelo de Datos
+### Reiniciar desde cero
+```bash
+docker compose down -v
+```
 
-![Esquema de Base de Datos](docs/diagrama_modelo.png)
+## Estructura
+- `dags/datamart_daily_pipeline.py`: DAG.
+- `dags/datamart_etl/`: `config.py` (reglas), `extract.py`, `transform.py`, `quality.py`, `load.py`.
+- `sql/ddl/01_schema.sql`: modelo del DW. `sql/validation/queries.sql`: consultas.
+- `data/raw/`: CSV de entrada. `data/staging/`: temporales (ignorados por git).
+- `docs/DECISIONES.md`: decisiones técnicas. `docs/modelo_datos.dbml` y `docs/diagrama_modelo.png`: modelo.
+
+## Documentación
+- Decisiones técnicas: [docs/DECISIONES.md](docs/DECISIONES.md)
+- Diagrama: ![Modelo de datos](docs/diagrama_modelo.png)
+- Video demo: <ENLACE_AQUI>
+
+## Solución de problemas
+- Cambiaste el DDL y no se refleja: `docker compose down -v` y vuelve a levantar.
+- Windows: los `.sh` deben guardarse con finales de línea LF.
