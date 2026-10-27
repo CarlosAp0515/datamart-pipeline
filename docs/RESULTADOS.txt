@@ -1,0 +1,179 @@
+    mes     | revenue_bruto | devoluciones | revenue_neto 
+------------+---------------+--------------+--------------
+ 2010-12-01 |     775572.23 |     17547.86 |    758024.37
+ 2011-01-01 |     670361.99 |     91525.05 |    578836.94
+ 2011-02-01 |     507783.42 |      8335.52 |    499447.90
+ 2011-03-01 |     689708.49 |     10504.30 |    679204.19
+ 2011-04-01 |     515354.78 |     33316.06 |    482038.72
+ 2011-05-01 |     739899.50 |      8948.23 |    730951.27
+ 2011-06-01 |     737558.98 |     13713.84 |    723845.14
+ 2011-07-01 |     688144.79 |     11407.26 |    676737.53
+ 2011-08-01 |     724196.76 |     22926.57 |    701270.19
+ 2011-09-01 |    1028313.80 |     16980.64 |   1011333.16
+ 2011-10-01 |    1103310.96 |     41613.03 |   1061697.93
+ 2011-11-01 |    1451575.69 |     24991.44 |   1426584.25
+ 2011-12-01 |     614487.63 |    174091.36 |    440396.27
+(13 rows)
+
+  category   | revenue_bruto | monto_devuelto | pct_devolucion 
+-------------+---------------+----------------+----------------
+ Hogar       |    4131120.16 |      187645.37 |           4.54
+ Otros       |    3536687.54 |       77822.69 |           2.20
+ Ropa        |    1282177.65 |       21914.42 |           1.71
+ Papelería   |     969561.48 |      181849.67 |          18.76
+ Electrónica |     238724.27 |        6445.86 |           2.70
+ Deportes    |      87997.92 |         223.15 |           0.25
+(6 rows)
+
+ product_code |            product_name            | category  | revenue_neto 
+--------------+------------------------------------+-----------+--------------
+ 22423        | REGENCY CAKESTAND 3 TIER           | Otros     |    164459.49
+ 85123A       | WHITE HANGING HEART T-LIGHT HOLDER | Hogar     |     99790.93
+ 47566        | PARTY BUNTING                      | Otros     |     98243.88
+ 85099B       | JUMBO BAG RED RETROSPOT            | Ropa      |     92175.79
+ 23084        | RABBIT NIGHT LIGHT                 | Otros     |     66661.63
+ 22086        | PAPER CHAIN KIT 50'S CHRISTMAS     | Papelería |     63715.24
+ 84879        | ASSORTED COLOUR BIRD ORNAMENT      | Otros     |     58792.42
+ 79321        | CHILLI LIGHTS                      | Otros     |     53746.66
+ 22502        | PICNIC BASKET WICKER SMALL         | Hogar     |     51023.52
+ 22197        | POPCORN HOLDER                     | Hogar     |     50967.92
+(10 rows)
+
+ product_code |            product_name             | unidades_vendidas | unidades_devueltas | tasa_devolucion_pct 
+--------------+-------------------------------------+-------------------+--------------------+---------------------
+ 23843        | PAPER CRAFT , LITTLE BIRDIE         |             80995 |              80995 |              100.00
+ 84347        | ROTATING SILVER ANGELS T-LIGHT HLDR |              9461 |               9376 |               99.10
+ 23166        | MEDIUM CERAMIC TOP STORAGE JAR      |             78033 |              74494 |               95.46
+ 85232B       | SET OF 3 BABUSHKA STACKING TINS     |               274 |                255 |               93.07
+ 23113        | PANTRY CHOPPING BOARD               |              1154 |                946 |               81.98
+ 85023B       | EAU DE NILE JEWELLED PHOTOFRAME     |               105 |                 73 |               69.52
+ 23055        | IVORY CHANDELIER T-LIGHT HOLDER     |               657 |                432 |               65.75
+ 23056        | FLOWERS CHANDELIER T-LIGHT HOLDER   |               963 |                579 |               60.12
+ 23057        | BEADED CHANDELIER T-LIGHT HOLDER    |               773 |                433 |               56.02
+ 47566B       | TEA TIME PARTY BUNTING              |              2578 |               1424 |               55.24
+(10 rows)
+
+       country        | facturas | pct_del_total | ticket_promedio 
+----------------------+----------+---------------+-----------------
+ United Kingdom       |    17901 |         90.53 |          487.32
+ Germany              |      443 |          2.24 |          463.61
+ France               |      382 |          1.93 |          482.97
+ EIRE                 |      282 |          1.43 |          960.46
+ Belgium              |       98 |          0.50 |          376.81
+ Netherlands          |       93 |          0.47 |         3052.57
+ Spain                |       88 |          0.45 |          633.03
+ Australia            |       56 |          0.28 |         2466.14
+ Portugal             |       50 |          0.25 |          539.02
+ Switzerland          |       50 |          0.25 |         1061.31
+ Finland              |       40 |          0.20 |          458.62
+ Italy                |       35 |          0.18 |          452.01
+ Sweden               |       34 |          0.17 |         1083.20
+ Norway               |       32 |          0.16 |         1014.21
+ Channel Islands      |       25 |          0.13 |          799.90
+ Japan                |       19 |          0.10 |         1969.28
+ Poland               |       19 |          0.10 |          367.09
+ Denmark              |       18 |          0.09 |         1011.74
+ Austria              |       17 |          0.09 |          514.28
+ Cyprus               |       14 |          0.07 |          940.51
+ Unspecified          |       13 |          0.07 |          364.69
+ Israel               |        8 |          0.04 |         1016.18
+ Iceland              |        7 |          0.04 |          615.71
+ Hong Kong            |        7 |          0.04 |         1392.03
+ USA                  |        5 |          0.03 |          716.08
+ Greece               |        5 |          0.03 |          885.10
+ Malta                |        5 |          0.03 |          414.12
+ Canada               |        5 |          0.03 |          623.09
+ Singapore            |        4 |          0.02 |         2280.10
+ Lithuania            |        4 |          0.02 |          415.27
+ European Community   |        3 |          0.02 |          386.42
+ Bahrain              |        3 |          0.02 |          251.38
+ United Arab Emirates |        2 |          0.01 |          932.39
+ Czech Republic       |        2 |          0.01 |          393.37
+ Saudi Arabia         |        1 |          0.01 |          145.92
+ RSA                  |        1 |          0.01 |         1002.31
+ Lebanon              |        1 |          0.01 |         1693.88
+ Brazil               |        1 |          0.01 |         1143.60
+(38 rows)
+
+   segmento   | lineas | facturas | revenue_bruto | ticket_promedio | unidades_por_linea | precio_unitario_promedio 
+--------------+--------+----------+---------------+-----------------+--------------------+--------------------------
+ identificado | 391148 |    18402 |    8736675.79 |          474.77 |              13.14 |                     2.87
+ sin_cliente  | 131354 |     1371 |    1509593.23 |         1101.09 |               3.19 |                     4.46
+(2 rows)
+
+ codigos_unicos_en_catalogo | con_variantes_de_escritura | con_descripcion_distinta 
+----------------------------+----------------------------+--------------------------
+                       3805 |                        212 |                      207
+(1 row)
+
+ product_code |           nombre_canonico           | raw_description_variants | normalized_description_variants 
+--------------+-------------------------------------+--------------------------+---------------------------------
+ 23196        | VINTAGE LEAF MAGNETIC NOTEPAD       |                        4 |                               4
+ 23236        | STORAGE TIN VINTAGE DOILY           |                        4 |                               4
+ 17107D       | FLOWER FAIRY,5 SUMMER B'DRAW LINERS |                        3 |                               3
+ 22776        | SWEETHEART CAKESTAND 3 TIER         |                        3 |                               3
+ 22937        | BAKING MOULD CHOCOLATE CUPCAKES     |                        3 |                               3
+ 23126        | FELTCRAFT GIRL AMELIE KIT           |                        3 |                               3
+ 23131        | MISTLETOE HEART WREATH CREAM        |                        3 |                               3
+ 23203        | JUMBO BAG VINTAGE DOILY             |                        3 |                               3
+ 23209        | LUNCH BAG VINTAGE DOILY             |                        3 |                               3
+ 23231        | WRAP DOILEY DESIGN                  |                        3 |                               3
+ 23244        | ROUND STORAGE TIN VINTAGE LEAF      |                        3 |                               3
+ 23366        | SET 12 COLOURING PENCILS DOILY      |                        3 |                               3
+ 23370        | SET 36 COLOURING PENCILS DOILY      |                        3 |                               3
+ 23396        | LE JARDIN BOTANIQUE CUSHION COVER   |                        3 |                               3
+ 23413        | VINTAGE COFFEE GRINDER BOX          |                        3 |                               3
+ 23535        | WALL ART BICYCLE SAFETY             |                        3 |                               3
+ 16156L       | WRAP CAROUSEL                       |                        2 |                               2
+ 20622        | VIPPASSPORT COVER                   |                        2 |                               2
+ 20725        | LUNCH BAG RED RETROSPOT             |                        2 |                               2
+ 20914        | SET/5 RED RETROSPOT LID GLASS BOWLS |                        2 |                               2
+(20 rows)
+
+ codigos_no_catalogo_rechazados 
+--------------------------------
+                             32
+(1 row)
+
+ product_code |            product_name             |  category   | revenue_bruto | monto_devuelto | revenue_neto 
+--------------+-------------------------------------+-------------+---------------+----------------+--------------
+ 79323W       | WHITE CHERRY LIGHTS                 | Otros       |          0.00 |          54.00 |       -54.00
+ 85063        | CREAM SWEETHEART MAGAZINE RACK      | Otros       |          0.00 |          46.85 |       -46.85
+ 35400        | WOODEN BOX ADVENT CALENDAR          | Hogar       |         89.50 |         135.20 |       -45.70
+ 21645        | ASSORTED TUTTI FRUTTI ROUND BOX     | Hogar       |          0.00 |          39.60 |       -39.60
+ 79323P       | PINK CHERRY LIGHTS                  | Otros       |         27.00 |          54.00 |       -27.00
+ 20703        | BLUE PADDED SOFT MOBILE             | Otros       |          4.25 |          29.75 |       -25.50
+ 85042        | ANTIQUE LILY FAIRY LIGHTS           | Electrónica |          0.00 |          14.85 |       -14.85
+ 85065        | CREAM SWEETHEART TRAYS              | Otros       |          0.00 |          12.75 |       -12.75
+ 37503        | TEA TIME CAKE STAND IN GIFT BOX     | Hogar       |          0.00 |          10.75 |       -10.75
+ 85068        | CREAM SWEETHEART SHELF + HOOKS      | Otros       |          0.00 |           7.95 |        -7.95
+ 84750A       | PINK SMALL GLASS CAKE STAND         | Hogar       |         46.80 |          52.65 |        -5.85
+ 84839        | SWEETHEART KEY CABINET              | Otros       |          0.00 |           5.55 |        -5.55
+ 79320        | FLAMINGO LIGHTS                     | Otros       |          0.00 |           4.95 |        -4.95
+ 85098B       | BLUE FLYING SINGING CANARY          | Otros       |          0.00 |           3.75 |        -3.75
+ 35832        | WOOLLY HAT SOCK GLOVE ADVENT STRING | Ropa        |          0.00 |           2.95 |        -2.95
+(15 rows)
+
+ product_code |            product_name            |  category   | revenue_bruto | monto_devuelto | pct_devolucion 
+--------------+------------------------------------+-------------+---------------+----------------+----------------
+ 23843        | PAPER CRAFT , LITTLE BIRDIE        | Papelería   |     168469.60 |      168469.60 |         100.00
+ 23166        | MEDIUM CERAMIC TOP STORAGE JAR     | Hogar       |      81700.92 |       77479.64 |          94.83
+ 23113        | PANTRY CHOPPING BOARD              | Otros       |       5868.50 |        4803.06 |          81.84
+ 21108        | FAIRY CAKE FLANNEL ASSORTED COLOUR | Hogar       |      18056.28 |        6591.42 |          36.50
+ 22273        | FELTCRAFT DOLL MOLLY               | Otros       |      12001.59 |        3512.65 |          29.27
+ 47566B       | TEA TIME PARTY BUNTING             | Hogar       |      12926.42 |        3692.95 |          28.57
+ 22191        | IVORY DINER WALL CLOCK             | Electrónica |      11911.65 |        2653.70 |          22.28
+ 22655        | VINTAGE RED KITCHEN CABINET        | Hogar       |       8125.00 |        1730.50 |          21.30
+ 48185        | DOORMAT FAIRY CAKE                 | Hogar       |      23872.91 |        4554.90 |          19.08
+ 22838        | 3 TIER CAKE TIN RED AND CREAM      | Hogar       |       9765.11 |        1671.60 |          17.12
+(10 rows)
+
+  category   | productos | pct_catalogo 
+-------------+-----------+--------------
+ Otros       |      1521 |        39.97
+ Hogar       |      1214 |        31.91
+ Ropa        |       525 |        13.80
+ Papelería   |       451 |        11.85
+ Electrónica |        69 |         1.81
+ Deportes    |        25 |         0.66
+(6 rows)

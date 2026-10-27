@@ -1,0 +1,79 @@
+Project DataMart_ETL {
+  database_type: 'PostgreSQL'
+  Note: 'Modelo dimensional para el Data Warehouse de DataMart S.A.S.'
+}
+
+Table dw.dim_customer {
+  customer_id varchar(20) [primary key]
+  country varchar(100)
+}
+
+Table dw.dim_product {
+  product_code varchar(20) [primary key]
+  product_name varchar(255)
+  category varchar(50)
+  raw_description_variants int
+  normalized_description_variants int
+}
+
+Table dw.fact_sales {
+  sale_id bigserial [primary key]
+  invoice_no varchar(20) [not null]
+  product_code varchar(20) [not null, ref: > dw.dim_product.product_code]
+  customer_id varchar(20) [ref: > dw.dim_customer.customer_id]
+  country varchar(100)
+  invoice_ts_utc timestamptz [not null]
+  invoice_date date [not null]
+  quantity int [not null, note: 'quantity > 0']
+  unit_price numeric(12,4) [not null, note: 'unit_price > 0']
+  source_system varchar(30)
+  
+  indexes {
+    invoice_date
+    product_code
+  }
+}
+
+Table dw.fact_returns {
+  return_id bigserial [primary key]
+  invoice_no varchar(20) [not null]
+  product_code varchar(20) [not null, ref: > dw.dim_product.product_code]
+  customer_id varchar(20) [ref: > dw.dim_customer.customer_id]
+  country varchar(100)
+  invoice_ts_utc timestamptz [not null]
+  invoice_date date [not null]
+  quantity int [not null, note: 'quantity <= 0']
+  unit_price numeric(12,4) [not null, note: 'unit_price > 0']
+  return_amount numeric(14,4) [not null, note: 'ABS(quantity) * unit_price']
+  source_system varchar(30)
+
+  indexes {
+    product_code
+  }
+}
+
+Table dw.agg_daily_product_net {
+  invoice_date date [not null]
+  product_code varchar(20) [not null, ref: > dw.dim_product.product_code]
+  units_sold int [default: 0]
+  gross_revenue numeric(16,4) [default: 0]
+  units_returned int [default: 0]
+  returned_amount numeric(16,4) [default: 0]
+  net_revenue numeric(16,4) [default: 0]
+
+  indexes {
+    (invoice_date, product_code) [pk]
+  }
+}
+
+Table dw.rejected_records {
+  reject_id bigserial [primary key]
+  source_system varchar(30) [not null]
+  reason varchar(100) [not null]
+  raw_data jsonb
+  rejected_at timestamptz [default: `now()`]
+
+  indexes {
+    reason
+  }
+}
