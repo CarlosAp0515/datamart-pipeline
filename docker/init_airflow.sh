@@ -28,7 +28,7 @@ airflow variables set staging_dir "/opt/airflow/data/staging"
 airflow variables set source_timezone "Europe/London"
 airflow variables set sales_file "data.csv"
 airflow variables set history_file "online_retail_history.csv"
-airflow variables set history_format "online_retail_ii"
-airflow variables set max_rejection_pct "40"
+
+airflow variables set max_rejection_pct "10"
 
 echo ">>> Inicializacion completa."

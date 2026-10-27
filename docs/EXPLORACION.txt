@@ -1,0 +1,69 @@
+﻿======================================================================
+ARCHIVO: data.csv | encoding: latin-1 | filas: 541,909
+Columnas: ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+Mapeo detectado: {'invoice': 'InvoiceNo', 'code': 'StockCode', 'description': 'Description', 'quantity': 'Quantity', 'date': 'InvoiceDate', 'price': 'UnitPrice', 'customer': 'CustomerID', 'country': 'Country'}
+
+Primeras 3 filas:
+  InvoiceNo StockCode                         Description Quantity     InvoiceDate UnitPrice CustomerID         Country
+0    536365    85123A  WHITE HANGING HEART T-LIGHT HOLDER        6  12/1/2010 8:26      2.55      17850  United Kingdom
+1    536365     71053                 WHITE METAL LANTERN        6  12/1/2010 8:26      3.39      17850  United Kingdom
+2    536365    84406B      CREAM CUPID HEARTS COAT HANGER        8  12/1/2010 8:26      2.75      17850  United Kingdom
+
+Nulos por columna:
+InvoiceNo           0
+StockCode           0
+Description      1454
+Quantity            0
+InvoiceDate         0
+UnitPrice           0
+CustomerID     135080
+Country             0
+
+Filas duplicadas exactas: 5,268
+Cantidad <= 0 (devoluciones/ajustes): 10,624
+Precio <= 0: 2,517
+Cantidad no num├®rica: 0 | Precio no num├®rico: 0
+Sin customer ID: 135,080 (24.9%)
+C├│digos que NO siguen el patr├│n de cat├ílogo: 2,995
+  M├ís frecuentes: {'POST': 1256, 'DOT': 710, 'M': 572, 'C2': 144, 'D': 77, 'S': 63, 'BANK CHARGES': 37, 'AMAZONFEE': 34, 'CRUK': 16, 'DCGSSGIRL': 13}
+C├│digos ├║nicos (normalizados): 3,958
+C├│digos con >1 descripci├│n cruda: 642
+C├│digos con >1 descripci├│n normalizada: 638
+
+Muestra de fechas (texto original): ['12/1/2010 8:26', '12/1/2010 8:26', '12/1/2010 8:26']
+Pa├¡ses: {'United Kingdom': 495478, 'Germany': 9495, 'France': 8557, 'EIRE': 8196, 'Spain': 2533, 'Netherlands': 2371, 'Belgium': 2069, 'Switzerland': 2002}
+======================================================================
+ARCHIVO: online_retail_history.csv | encoding: utf-8 | filas: 541,909
+Columnas: ['index', 'InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+Mapeo detectado: {'invoice': 'InvoiceNo', 'code': 'StockCode', 'description': 'Description', 'quantity': 'Quantity', 'date': 'InvoiceDate', 'price': 'UnitPrice', 'customer': 'CustomerID', 'country': 'Country'}
+
+Primeras 3 filas:
+  index InvoiceNo StockCode                         Description Quantity     InvoiceDate UnitPrice CustomerID         Country
+0     0    536365    85123A  WHITE HANGING HEART T-LIGHT HOLDER        6  12/1/2010 8:26      2.55    17850.0  United Kingdom
+1     1    536365     71053                 WHITE METAL LANTERN        6  12/1/2010 8:26      3.39    17850.0  United Kingdom
+2     2    536365    84406B      CREAM CUPID HEARTS COAT HANGER        8  12/1/2010 8:26      2.75    17850.0  United Kingdom
+
+Nulos por columna:
+index               0
+InvoiceNo           0
+StockCode           0
+Description      1454
+Quantity            0
+InvoiceDate         0
+UnitPrice           0
+CustomerID     135080
+Country             0
+
+Filas duplicadas exactas: 0
+Cantidad <= 0 (devoluciones/ajustes): 10,624
+Precio <= 0: 2,517
+Cantidad no num├®rica: 0 | Precio no num├®rico: 0
+Sin customer ID: 135,080 (24.9%)
+C├│digos que NO siguen el patr├│n de cat├ílogo: 2,995
+  M├ís frecuentes: {'POST': 1256, 'DOT': 710, 'M': 572, 'C2': 144, 'D': 77, 'S': 63, 'BANK CHARGES': 37, 'AMAZONFEE': 34, 'CRUK': 16, 'DCGSSGIRL': 13}
+C├│digos ├║nicos (normalizados): 3,958
+C├│digos con >1 descripci├│n cruda: 642
+C├│digos con >1 descripci├│n normalizada: 638
+
+Muestra de fechas (texto original): ['12/1/2010 8:26', '12/1/2010 8:26', '12/1/2010 8:26']
+Pa├¡ses: {'United Kingdom': 495478, 'Germany': 9495, 'France': 8557, 'EIRE': 8196, 'Spain': 2533, 'Netherlands': 2371, 'Belgium': 2069, 'Switzerland': 2002}
